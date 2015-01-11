@@ -17,37 +17,46 @@ import android.widget.EditText;
 public class MainActivity extends ActionBarActivity {
 
     public static final String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
+    public static final String GPS_STATE = "gpsState";
+    private int userGPSPreference = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // The activity is either being restarted or started for the first time
-        // so this is where we should make sure that GPS is enabled
         LocationManager locationManager =
                 (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-        if (!gpsEnabled) {
+        if (savedInstanceState == null) {
+            userGPSPreference = 0;
+        } else {
+            userGPSPreference = savedInstanceState.getInt(GPS_STATE);
+        }
+        if (!gpsEnabled && userGPSPreference != 1) {
             new AlertDialog.Builder(this).setTitle(R.string.gpsNotEnabled)
                     .setPositiveButton(R.string.enableGPS, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            userGPSPreference = 1;
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            userGPSPreference = 1;
                         }
                     }).create().show();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt(GPS_STATE, userGPSPreference);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
