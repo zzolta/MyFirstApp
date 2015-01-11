@@ -9,4 +9,7 @@
     <string name="hello_world">Helló világ!</string>
     <string name="action_search">Keresés</string>
 
+    <string name="enableGPS">Kapcsolja be a GPS-t</string>
+    <string name="gpsNotEnabled">GPS nincs bekapcsolva</string>
+    <string name="cancel">Mégse</string>
 </resources>
