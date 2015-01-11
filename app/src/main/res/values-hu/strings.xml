@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Első applikációm</string>
+    <string name="action_settings">Beállítások</string>
+    <string name="edit_message">Írj be egy üzenetet</string>
+    <string name="button_send">Elküld</string>
+    <string name="title_activity_display_message">Az én üzenetem</string>
+    <string name="hello_world">Helló világ!</string>
+    <string name="action_search">Keresés</string>
+
+</resources>
